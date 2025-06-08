@@ -1,0 +1,80 @@
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Calendar } from "@/components/ui/calendar";
+import { Textarea } from "@/components/ui/textarea";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+
+export default function Home() {
+  const [search, setSearch] = useState("");
+
+  return (
+    <div className="min-h-screen bg-white text-gray-900">
+      {/* Hero Section */}
+      <section className="bg-cover bg-center h-[80vh] flex items-center justify-center" style={{ backgroundImage: 'url("/hero.jpg")' }}>
+        <div className="bg-black bg-opacity-50 p-10 rounded-2xl text-center">
+          <h1 className="text-4xl font-bold text-white mb-4">Find Your Ideal Stay in Montreal</h1>
+          <Input 
+            placeholder="Search neighborhoods or listings..." 
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="max-w-md mx-auto"
+          />
+        </div>
+      </section>
+
+      {/* Property Categories */}
+      <section className="p-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+        {["Downtown Condos", "Family Homes", "Student Living"].map((cat) => (
+          <Card key={cat} className="rounded-2xl shadow">
+            <CardContent className="p-6">
+              <h3 className="text-xl font-semibold mb-2">{cat}</h3>
+              <p>Explore fully furnished and modern rentals perfect for {cat.toLowerCase()}.</p>
+              <Button className="mt-4">Browse {cat}</Button>
+            </CardContent>
+          </Card>
+        ))}
+      </section>
+
+      {/* Booking Section */}
+      <section className="bg-gray-100 py-10 px-4">
+        <div className="max-w-3xl mx-auto">
+          <h2 className="text-2xl font-bold mb-4">Book Your Stay</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <Input placeholder="Name" />
+            <Input placeholder="Email" />
+            <Calendar mode="single" selected={new Date()} onSelect={() => {}} />
+            <Textarea placeholder="Message (optional)" className="col-span-2" />
+          </div>
+          <Button className="mt-4">Submit Request</Button>
+        </div>
+      </section>
+
+      {/* About + Contact Tabs */}
+      <section className="py-10 px-4">
+        <Tabs defaultValue="about" className="max-w-3xl mx-auto">
+          <TabsList>
+            <TabsTrigger value="about">About Digs YUL</TabsTrigger>
+            <TabsTrigger value="contact">Contact Us</TabsTrigger>
+          </TabsList>
+          <TabsContent value="about">
+            <p className="mt-4">
+              Digs YUL is your trusted local partner in finding top-quality rental homes in Montreal. From downtown condos to student housing, we connect people with homes they’ll love.
+            </p>
+          </TabsContent>
+          <TabsContent value="contact">
+            <p className="mt-4">
+              Call us at (514) 444-9639 or email info@digsyul.com. You can also visit us in person by appointment.
+            </p>
+          </TabsContent>
+        </Tabs>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-black text-white py-6 text-center">
+        <p>Digs YUL © 2025 | All rights reserved.</p>
+      </footer>
+    </div>
+  );
+}
